@@ -1,5 +1,0 @@
-server.port=9090
-spring.application.name=Zuul-Gateway
-eureka.client.register-with-eureka=true
-eureka.client.fetch-registry=true
-
