@@ -21,7 +21,7 @@ import com.samuel.Admin.Model.SuppInventory;
 
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/admin/auth")
 public class AdminController {
 	
 	@Autowired
@@ -43,6 +43,7 @@ public class AdminController {
 		return restTemplate.getForObject(url, Object.class);
 		
 	}
+	
 	@PostMapping("/addDrugInfo")
 	public void addDrugInventoryInfo(@RequestBody DrugInventory drugInventory ) {
 	

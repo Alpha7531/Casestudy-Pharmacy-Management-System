@@ -2,42 +2,34 @@ server:
         port: 9090
 spring:
         application:
-               name: API-Gateway              
+               name: zuul-gateway        
         cloud: 
           gateway:
             routes:
-            - id: Admin-service
+            - id: Admin-Service
               uri: http://localhost:8081/
               predicates:
-               - Path=/admin/**
+              - Path=/admin/**
               filters:
               - StripPrefix=1
-            - id: Doctor-service
+            - id: Doctor-Service
               uri: http://localhost:8082/
               predicates:
-               - Path=/doctor/**
-              filters:
-              - StripPrefix=1
-            - id: Order-Inventory-service
-              uri: http://localhost:8083/
-              predicates:
-              - Path=/order/**  
+              - Path=/doctor/**
               filters:
               - StripPrefix=1
             - id: Drug-Inventory-Service
-              uri: http://localhost:8085/
+              uri: http://localhost:8084/
               predicates:
               - Path=/drug/**  
               filters:
               - StripPrefix=1
-            - id: Supplier-Inventory-service
+            - id: Supplier-inventory-Service
               uri: http://localhost:8085/
               predicates:
-              - Path=/supplier/**  
+              - Path=/supplier/**
               filters:
               - StripPrefix=1 
-            
-  
 eureka:
   client:
     enabled: true

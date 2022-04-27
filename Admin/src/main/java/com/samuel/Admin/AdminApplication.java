@@ -26,12 +26,16 @@ public class AdminApplication {
 		return new RestTemplate();
 	}
 	
+	/*docket is an primary interface into swagger-spring-mvc-framework which provide default and conveniencw for configuration */
 	@Bean
-	public Docket swaggerConfig()
+	public  Docket swaggerConfig()  
 	{
-		return new Docket(DocumentationType.SWAGGER_2)//step (1)it is just creating new Docket instance of ducument type that is configured to use swagger2
+		/*it is just creating new Docket instance of ducument type that is configured to use swagger2*/
+		return new Docket(DocumentationType.SWAGGER_2)
+				/*this method use to select apiselectorbuilder which provids a way to control the end point*/
 	               .select() 
-	               .apis(RequestHandlerSelectors.basePackage("com.samuel.Admin"))//(4) giving thebase pakage //both 3 and 4 will eliminate the 1st problem
+	               /* handler will scan the ase pakage and creat Api for all of the classes within it*/
+	               .apis(RequestHandlerSelectors.basePackage("com.samuel.Admin"))
 	               .build()
 	               .apiInfo(apiDetails());	
 	}

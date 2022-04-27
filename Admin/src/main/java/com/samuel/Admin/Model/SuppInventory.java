@@ -1,9 +1,8 @@
 package com.samuel.Admin.Model;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
 
-@Document(collection = "Supplier-Inventory")
+
 public class SuppInventory {
 	
 	@Id

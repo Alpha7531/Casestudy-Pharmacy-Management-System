@@ -1,8 +1,13 @@
 package com.samuel.Admin.Model;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 
-public interface AdminRepository extends MongoRepository<Admin,String> {
+
+public interface AdminRepository extends JpaRepository<Admin,String> {
+
+	//Admin findByUsername(String name);
+	
+
 
 }
