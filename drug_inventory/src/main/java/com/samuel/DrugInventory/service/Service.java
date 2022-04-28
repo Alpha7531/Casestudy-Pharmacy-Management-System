@@ -27,7 +27,7 @@ public class Service {
 		public void addDrugInfo(DrugInventory drugInventory) {
 			drugRepo.save(drugInventory);
 		}
-		
+//-----------------------------------------------------------------
 	//-----For edit and update DrugInventory
 		public void updateDrug(DrugInventory drugInventory) {
 			drugRepo.save(drugInventory);

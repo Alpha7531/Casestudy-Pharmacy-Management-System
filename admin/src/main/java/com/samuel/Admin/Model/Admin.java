@@ -5,29 +5,30 @@ package com.samuel.Admin.Model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
 
 
 @Entity
-@Table(name="Admin")
+@Table(name="admin")
 public class Admin {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
    private int id;
    private String name;
    private String email;
    private Long phoneNumber;
    private String password;
    
-public Admin(int id, String name, String email, Long phoneNumber, String password) {
-	super();
-	this.id = id;
-	this.name = name;
-	this.email = email;
-	this.phoneNumber = phoneNumber;
-	this.password = password;
+   
+   
+   
+@Override
+public String toString() {
+	return "Admin [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password="
+			+ password + "]";
 }
 
 
