@@ -18,7 +18,7 @@ public class Service {
 		return drugRepo.findAll();
 	}
 
-	// -----viewing perticular drug data by searching throuh Id
+	// -----viewing perticular drug by id
 	public DrugInventory viewById(int id) {
 		return drugRepo.findById(id).get();
 	}
@@ -27,8 +27,9 @@ public class Service {
 		public void addDrugInfo(DrugInventory drugInventory) {
 			drugRepo.save(drugInventory);
 		}
-//-----------------------------------------------------------------
-	//-----For edit and update DrugInventory
+
+	//-----For updtaing edit and update DrugInventory
+		
 		public void updateDrug(DrugInventory drugInventory) {
 			drugRepo.save(drugInventory);
 		}

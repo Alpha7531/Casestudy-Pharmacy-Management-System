@@ -21,7 +21,7 @@ import com.samuel.Admin.Model.SuppInventory;
 
 
 @RestController
-@RequestMapping("/admin/auth")
+@RequestMapping("/admin")
 public class AdminController {
 	
 	@Autowired

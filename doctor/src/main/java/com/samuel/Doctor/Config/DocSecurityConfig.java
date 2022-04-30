@@ -1,25 +1,27 @@
 
-package com.samuel.Admin.Config;
+package com.samuel.Doctor.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.server.SecurityWebFilterChain;
 
-import com.samuel.Admin.Service.AdminUserDetailsService;
+import com.samuel.Doctor.Service.DoctorUserDetailsService;
+
+
 
 @Configuration
 
-public class AdmSecurityConfig extends WebSecurityConfigurerAdapter {
+public class DocSecurityConfig extends WebSecurityConfigurerAdapter {
 @Bean
 public UserDetailsService userDetailService() {
-	return new AdminUserDetailsService();
+	return new DoctorUserDetailsService();
 }
 	
+
+
 @Bean 
 public PasswordEncoder passwordEncoder() {
 	return NoOpPasswordEncoder.getInstance();

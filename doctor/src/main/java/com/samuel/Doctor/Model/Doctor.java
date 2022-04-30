@@ -1,29 +1,29 @@
 package com.samuel.Doctor.Model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Document(collection = "Doctor")
+
+
+@Entity
+@Table(name="doctor")
 public class Doctor {
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String name;
 	private String email;
 	private Long phoneNumber;
 	private String password;
 	
-	public Doctor() {
-		super();
-	}
-	
-	public Doctor(int id, String name, String email, Long phoneNumber, String password) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.email = email;
-		this.phoneNumber = phoneNumber;
-		this.password = password;
+	@Override
+	public String toString() {
+		return "Admin [id=" + id + ", name=" + name + ", email=" + email + ", phoneNumber=" + phoneNumber + ", password="
+				+ password + "]";
 	}
 
 	public int getId() {

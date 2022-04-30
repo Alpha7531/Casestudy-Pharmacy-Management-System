@@ -30,8 +30,8 @@ public class OrderInventoryApplication {
 	}
 	private ApiInfo apiDetails() {
 		return new ApiInfo(
-				"PharmacyManagement Drug API",
-				"Drug",
+				"PharmacyManagement Order API",
+				"Order",
 				"1.0",
 				"free to use",
 				new springfox.documentation.service.Contact("Samuel Murari", "http:/javabrains.io+", "a@b.com"),
