@@ -1,100 +1,83 @@
 package com.samuel.Admin.Controller;
 
-
-import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.RestTemplate;
 
-import com.samuel.Admin.Model.DrugInventory;
-import com.samuel.Admin.Model.SuppInventory;
-
-
-
+import com.samuel.Admin.Model.AdminModel;
+import com.samuel.Admin.Model.AuthenticationRequest;
+import com.samuel.Admin.Model.AuthenticationResponse;
+import com.samuel.Admin.Repository.AdminRepository;
+import com.samuel.Admin.Service.AdminService;
+import com.samuel.Admin.Service.JwtUtils;
 @RestController
-@RequestMapping("/admin")
 public class AdminController {
 	
-	@Autowired
-	private RestTemplate restTemplate;
-//----Crud Operation On DrugInventory microservices------------>>
+@Autowired
+private AdminRepository adminRepository;
+
+@Autowired
+private AdminService adminService;
+
+@Autowired
+private JwtUtils jwtUtils;
+
+@Autowired
+private AuthenticationManager authenticationManager;
+//---------------------------Registration and Login -------------------------------//
+
+@GetMapping("/findadmin")
+public List<AdminModel> getadmin() {
+	return adminRepository.findAll();
+}
 	
-	@GetMapping("/viewAllDrug")
-	public List<Object> getAllDrugInventoryInfo(){
-		
-		String url="http://localhost:8084/drug/view";
-		Object[] objects= restTemplate.getForObject(url, Object[].class);
-		return Arrays.asList(objects);
+@PostMapping("/reg")
+	private ResponseEntity<?> subscribeClient(@RequestBody AuthenticationRequest authenticationRequest)
+	{
+		String Adminname = authenticationRequest.getAdminname();
+		String password = authenticationRequest.getPassword();
+		String emailid = authenticationRequest.getEmailid();
+		String contactno = authenticationRequest.getContactno();
+		AdminModel adminModel = new AdminModel();
+        adminModel.setAdminname(Adminname);
+        adminModel.setPassword(password);
+        adminModel.setContactno(contactno);
+        adminModel.setEmailid(emailid);
+        try {
+        	adminRepository.save(adminModel);
+		}
+
+
+		catch (Exception e)
+		{
+			return ResponseEntity.ok(new AuthenticationResponse("Error During Auth for Admin" + Adminname));
+		}
+		return ResponseEntity.ok(new AuthenticationResponse("Successful Auth" + Adminname));
 	}
-	
-	@GetMapping("/viewDrugById")
-	public Object getDrugInventoryById(@RequestParam int id){
-		
-		String url="http://localhost:8084/drug/view/"+id;
-		return restTemplate.getForObject(url, Object.class);
-		
+	@PostMapping("/auth")
+	private ResponseEntity<?> authenticateClient(@RequestBody AuthenticationRequest authenticationRequest)
+	{
+		String Adminname = authenticationRequest.getAdminname();
+		String password = authenticationRequest.getPassword();
+
+//--------------------------------CRUD Operations----------------------//
+	try {
+		authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(Adminname, password));
+	} catch (Exception e) {
+		return ResponseEntity.ok(new AuthenticationResponse("Error while authenticating" + Adminname));
 	}
-	
-	@PostMapping("/addDrugInfo")
-	public void addDrugInventoryInfo(@RequestBody DrugInventory drugInventory ) {
-	
-		 restTemplate.postForObject("http://localhost:8084/drug/add", drugInventory, DrugInventory.class);
-	
-	}
-	
-	@PutMapping("editDrugInfo")
-	public void editDrugInventoryInfo(@RequestBody DrugInventory drugInventory) {
-		restTemplate.put("http://localhost:8084/drug/edit", drugInventory);
-	}
-	
-	
-	@DeleteMapping("/deleteDrugById")
-	public String deleteDrugInventoryInfoById(@RequestParam int id){
-		
-		String url="http://localhost:8084/drug/delete/"+id;
-		 restTemplate.delete(url);
-		 return "Data with id '"+id+"' succesfully deleted";
-	}
-	//------------Crud Operaton On Supplier Inventory---------->>
-	
-	@GetMapping("/viewAllSupp")
-	public List<Object> getAllSuppInventoryInfo(){
-		
-		String url="http://localhost:8085/supplier/view";
-		Object[] objects= restTemplate.getForObject(url, Object[].class);
-		return Arrays.asList(objects);
-	}
-	
-	@GetMapping("/viewSuppById")
-	public Object getSuppInventoryById(@RequestParam int id){
-		
-		String url="http://localhost:8085/supplier/view/"+id;
-		return restTemplate.getForObject(url, Object.class);
-		
-	}
-	
-	@PostMapping("/addSuppInfo")
-	public void addSuppInventoryInfo(@RequestBody SuppInventory suppInventory ) {
-	
-		 restTemplate.postForObject("http://localhost:8085/supplier/add", suppInventory, SuppInventory.class);
-	
-	}
-	
-	@DeleteMapping("/deleteSuppById")
-	public String deleteSuppInventoryInfoById(@RequestParam int id){
-		
-		String url="http://localhost:8085/supplier/delete/"+id;
-		 restTemplate.delete(url);
-		 return "Data with id '"+id+"' succesfully deleted";
-	}
-	
+	//return ResponseEntity.ok(new AuthenticationResponse("Succesfull authentication for user " + username));
+	UserDetails loadedUser = adminService.loadUserByUsername(Adminname);
+	String generatedToken = jwtUtils.generateToken(loadedUser);
+	return ResponseEntity.ok(new AuthenticationResponse(generatedToken));
+}
+
 }

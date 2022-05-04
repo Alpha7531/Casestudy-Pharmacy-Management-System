@@ -1,4 +1,4 @@
-package com.samuel.DrugInventory.AttributeAndRepository;
+package com.samuel.DrugInventory.Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

@@ -16,7 +16,7 @@ import com.samuel.OrderInventory.Model.Order;
 import com.samuel.OrderInventory.Service.Service;
 
 @RestController
-@RequestMapping("/drug")
+@RequestMapping("/order")
 public class OrderController {
 	@Autowired
 	private Service service;
@@ -42,6 +42,7 @@ public class OrderController {
 	 public void  deleteDrug(@PathVariable int id)
 	 { 
 		 service.deleteById(id);
+		
 	
 		
 	 }

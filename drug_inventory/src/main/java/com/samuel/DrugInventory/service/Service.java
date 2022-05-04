@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.samuel.DrugInventory.AttributeAndRepository.DrugInventory;
-import com.samuel.DrugInventory.AttributeAndRepository.DrugInventoryRepository;
+import com.samuel.DrugInventory.Model.DrugInventory;
+import com.samuel.DrugInventory.Repository.DrugInventoryRepository;
 
 @Component
 public class Service {

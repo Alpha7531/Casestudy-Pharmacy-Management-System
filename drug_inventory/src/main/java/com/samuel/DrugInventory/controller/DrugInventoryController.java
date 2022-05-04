@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.samuel.DrugInventory.AttributeAndRepository.DrugInventory;
+import com.samuel.DrugInventory.Model.DrugInventory;
 import com.samuel.DrugInventory.service.Service;
 
 @RestController
