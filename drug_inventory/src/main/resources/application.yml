@@ -1,0 +1,19 @@
+server:
+    port: 8084
+spring:
+    application: 
+              name: Drug-Inventory-Service
+
+#for swagger after linking if eror come
+    mvc.pathmatch.matching-strategy: ant-path-matcher
+
+#To link Mongodb with spring boot
+    data:
+       mongodb:
+           uri: mongodb+srv://Samuel7531:Alpha7531@cluster0.8krkp.mongodb.net/Drug-Inventory
+
+#registering to eureka
+eureka:
+     client:
+        register-with-eureka: true
+        fetch-registry: true

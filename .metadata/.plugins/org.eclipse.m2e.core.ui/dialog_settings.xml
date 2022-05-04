@@ -2,6 +2,7 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
+			<item value="D:\capgemini\Capgemini\Assignments\CaseStudy\CaseStudy\security"/>
 			<item value="D:\capgemini\Capgemini\Assignments\CaseStudy\CaseStudy\API-Gateway"/>
 			<item value="D:\capgemini\Capgemini\Assignments\CaseStudy\CaseStudy\Admin"/>
 		</list>
